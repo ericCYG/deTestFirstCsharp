@@ -1,0 +1,83 @@
+﻿@model IEnumerable<deTestFirstCsharp.Models.CMemberViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>圖書館會員</h3>
+<div class="row">
+    <div class="col-2">
+        <form asp-controller="home" method="post">
+
+            <label>員編</label>
+            <input type="number" class=" form-control" name="id" value="@(TempData["id"] ?? -1)" /><br />
+
+            @*@Html.Hidden("id")*@
+            <label>姓名</label>
+            <input class=" form-control" name="name" value="@(TempData["name"] ?? string.Empty)" /><br />
+            @*@Html.Hidden("name")*@
+            <label>性別</label>
+            <input class=" form-control" name="sex" value="@(TempData["sex"] ?? string.Empty)" /><br />
+            <label>電話</label>
+            <input class=" form-control" name="phone" value="@(TempData["phone"] ?? string.Empty)" /><br />
+            <label>住址</label>
+            <input class=" form-control" name="address" value="@(TempData["address"] ?? string.Empty)" /><br />
+
+            <input type="submit" class="btn btn-primary" value="查詢" asp-action="Index" />
+            <input type="submit" class="btn btn-primary" value="新增" asp-action="Create" />
+            <input type="submit" class="btn btn-outline-warning" value="編輯" asp-action="Edit" />
+
+        </form>
+    </div>
+    <div class="col-10">
+
+        <table class="table  table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.sex)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.address)
+                    </th>
+                    <th>功能</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.sex)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.address)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.id">編輯</a> |
+                            <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.id" onclick="return confirm('想要刪除{@item.id - @item.name}嗎?')">刪除</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
